@@ -40,8 +40,8 @@ function init() {
   let princeDialog2 = new Image();
   princeDialog2.src = "images/dialog/prince-dialog-2.png";
 
-  jungleGirlCanSee = false; //Player visibility to the Eskimo initally set to false
-  chatComplete = true;
+  let jungleGirlCanSee = false; //Player visibility to the Eskimo initally set to false
+  let chatComplete = true;
 
   let keyPress = {}; //initialize the list that containing key presses
 
@@ -97,21 +97,20 @@ function init() {
     //Eskimo begins conversation upon seeing the player
     if (jungleGirlCanSee == true) {
       ctx.drawImage(jungleGirlDialog1, jungleGirlXCordinates - 190, jungleGirlYCordinates - 20); //displays first dialugue by Eskimo
+
       setTimeout(function () {
-        jungleGirlDialog1.remove();
-        chatComplete = false;
         ctx.drawImage(princeDialog1, princeXCordinates + 80, princeYCordinates - 20);
+        jungleGirlDialog1.src = "images/dialog/transparent-bg.png";
       }, 3000); //player responds after few seconds delay
 
       setTimeout(function () {
-        princeDialog1.remove();
         ctx.drawImage(jungleGirlDialog2, jungleGirlXCordinates - 190, jungleGirlYCordinates - 20);
+        princeDialog1.src = "images/dialog/transparent-bg.png";
       }, 6000); //the eskimo responds to player after few seconds delay
 
       setTimeout(function () {
-        jungleGirlDialog2.remove();
         ctx.drawImage(princeDialog2, princeXCordinates + 80, princeYCordinates - 20);
-        chatComplete = true;
+        jungleGirlDialog2.src = "images/dialog/transparent-bg.png";
       }, 9000); //player responds
     }
   }
