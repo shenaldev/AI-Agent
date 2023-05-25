@@ -6,6 +6,17 @@ function init() {
   ctx.canvas.height = window.innerHeight;
   document.body.style.backgroundImage = "url('images/background/stage-1-bg.jpg')";
 
+  //Play Bg Music
+  document.addEventListener("keydown", () => {
+    let bgMusic = document.getElementById("bg-music");
+    bgMusic.play();
+    bgMusic.volume = 0.1;
+  });
+
+  //Sounds
+  let walkingSound = new Audio("sounds/foot-steps.wav");
+  let lionGrowlSound = new Audio("sounds/lion-growl.wav");
+
   //darwing prince image
   let princeXCordinates = 5; //prince x cordinates
   let princeYCordinates = 380; //prince y cordinates
@@ -50,6 +61,7 @@ function init() {
     "keydown",
     function (e) {
       keyPress[e.keyCode] = true;
+      walkingSoundPlay();
     },
     false
   );
@@ -59,9 +71,20 @@ function init() {
     "keyup",
     function (e) {
       delete keyPress[e.keyCode];
+      walkingSoundStop();
     },
     false
   );
+
+  function walkingSoundPlay() {
+    walkingSound.play();
+  }
+
+  function walkingSoundStop() {
+    setTimeout(() => {
+      walkingSound.pause();
+    }, 200);
+  }
 
   //function to update the state of the game for elapsed time since last rendering of object
   function update() {
@@ -103,12 +126,15 @@ function init() {
   //function to draw objects
   function draw() {
     ctx.drawImage(princeImage, princeXCordinates, princeYCordinates);
-    ctx.drawImage(deerImage, deerXCordinates, deerYCordinates);
     ctx.drawImage(cottage, treeXCordinates, treeYCordinates);
 
     if (cansee == true) {
       deerImage.src = "images/charactors/lion.png";
       deerXCordinates = princeXCordinates - 50;
+      lionGrowlSound.play();
+      lionGrowlSound.loop = true;
+    } else {
+      ctx.drawImage(deerImage, deerXCordinates, deerYCordinates);
     }
   }
   //main function rendering the objects with state changes
