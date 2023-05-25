@@ -1,13 +1,11 @@
 window.onload = init();
 function init() {
-  let monsterDed = false;
-
-  const c = document.getElementById("canvas-stage-2");
-  ctx = c.getContext("2d");
+  const c = document.getElementById("canvas-stage-3");
+  let ctx = c.getContext("2d");
   ctx.canvas.width = window.innerWidth;
   ctx.canvas.height = window.innerHeight;
-  document.body.style.backgroundImage = "url('images/background/stage-2-castle-bg.jpg')";
-  document.body.style.backgroundSize = "cover";
+  document.body.style.backgroundImage = "url('images/background/stage-3-rock-cave-bg.jpg')";
+  document.body.style.backgroundSize = "contain";
 
   //Play Bg Music
   document.addEventListener("keydown", () => {
@@ -16,38 +14,44 @@ function init() {
     bgMusic.volume = 0.5;
   });
 
-  //Sounds
-  let swordSound = new Audio("sounds/sword-sound.mp3");
-
-  //darwing prince image
-  let princeXCordinates = 20; //prince x cordinates
-  let princeYCordinates = 520; //prince y cordinates
+  //darwing player image
+  let princeXCordinates = 5; //player x cordinates
+  let princeYCordinates = 290; //player y cordinates
   let princeImage = new Image();
   princeImage.src = "images/charactors/prince.png";
 
-  //darwing sword image
-  let swordXCordinates = 20; //sword x cordinates
-  let swordYCordinates = 420; //sword y cordinates
-  let swordImage = new Image();
-  swordImage.src = "images/sword.png";
-
-  swordImage.onload = function () {
-    ctx.drawImage(swordImage, swordXCordinates, swordYCordinates);
+  princeImage.onload = function () {
+    ctx.drawImage(princeImage, princeXCordinates, princeYCordinates);
   };
 
-  //drawing monster
-  let monsterXCordinates = 1500; //monster x cordinates
-  let monsterYCordinates = 440; //monster y cordinates
-  let monsterImage = new Image();
-  monsterImage.src = "images/charactors/monster.png";
+  //drawing Eskimo
+  let jungleGirlXCordinates = 1000; //Eskimo x coordinates
+  let jungleGirlYCordinates = 350; // Eskimo y coordinates
+  let jungleGirlImage = new Image();
+  jungleGirlImage.src = "images/charactors/anna-jungle.png";
 
-  monsterImage.onload = function () {
-    ctx.drawImage(monsterImage, monsterXCordinates, monsterYCordinates);
+  jungleGirlImage.onload = function () {
+    ctx.drawImage(jungleGirlImage, jungleGirlXCordinates, jungleGirlYCordinates);
   };
+
+  //Drawing dialogues
+  let jungleGirlDialog1 = new Image();
+  jungleGirlDialog1.src = "images/dialog/jungle-girl-dialog-1.png";
+
+  let princeDialog1 = new Image();
+  princeDialog1.src = "images/dialog/prince-dialog-1.png";
+
+  let jungleGirlDialog2 = new Image();
+  jungleGirlDialog2.src = "images/dialog/jungle-girl-dialog-2.png";
+
+  let princeDialog2 = new Image();
+  princeDialog2.src = "images/dialog/prince-dialog-2.png";
+
+  let jungleGirlCanSee = false; //Player visibility to the Eskimo initally set to false
+  let chatComplete = true;
 
   let keyPress = {}; //initialize the list that containing key presses
 
-  // prince walking right when click the right arrow
   addEventListener(
     "keydown",
     function (e) {
@@ -56,7 +60,6 @@ function init() {
     false
   );
 
-  // prince walking left when click the left arrow
   addEventListener(
     "keyup",
     function (e) {
@@ -65,86 +68,69 @@ function init() {
     false
   );
 
-  function moveMonster() {
-    if (!monsterDed) {
-      if (monsterXCordinates > princeXCordinates + 150) {
-        setTimeout(() => {
-          monsterXCordinates = monsterXCordinates - 1;
-        }, 600);
-      } else if (monsterXCordinates < 1500) {
-        setTimeout(() => {
-          monsterXCordinates = monsterXCordinates + 1;
-        }, 600);
-      }
-    }
-  }
-
-  /**
-   * IF monster near hit to monster
-   */
-  function checkMonsterNear() {
-    if (!monsterDed) {
-      if (monsterXCordinates < princeXCordinates + 200) {
-        //HIT monster on near
-        setTimeout(() => {
-          ctx.drawImage(swordImage, swordXCordinates, swordYCordinates + 30, 400, 400);
-          swordSound.play();
-        }, 300);
-        // Change hit state on monster near
-        setTimeout(() => {
-          monsterDed = true;
-        }, 5000);
-      }
-    }
-  }
-
   //function to update the state of the game for elapsed time since last rendering of object
   function update() {
     //checks if left arrow is pressed
     if (37 in keyPress) {
-      princeXCordinates = princeXCordinates - 5; //changes position of player to move back
-      swordXCordinates = swordXCordinates - 5;
+      princeXCordinates = princeXCordinates - 1; //changes position of player to move back
     }
-
     //checks if right arrow is pressed
-    if (39 in keyPress) {
-      princeXCordinates = princeXCordinates + 5; //changes position of the player to move forward
-      swordXCordinates = swordXCordinates + 5;
-    }
-    checkMonsterNear();
-
-    if (monsterDed) {
-      monsterImage.src = "images/charactors/monster-ded.png";
+    if (39 in keyPress && chatComplete == true) {
+      princeXCordinates = princeXCordinates + 1; //chanes position of the player to move forward
     }
 
-    if (monsterDed) {
-      setTimeout(() => {
-        window.open("stage-3.html", "_self"); //continues to next scene
-      }, 2000);
+    //when the player appraaches the Eskimo sees the player
+    if (princeXCordinates > 600 && princeXCordinates < 700) {
+      jungleGirlCanSee = true;
+    } else {
+      jungleGirlCanSee = false;
+    }
+
+    if (princeXCordinates > 1500) {
+      window.open("stage-4.html", "_self"); //continues to next scene
     }
   }
 
   //function to clear the canvas
   function clear() {
-    //ctx.canvas.width  = window.innerWidth;
     ctx.canvas.width = window.innerWidth + princeXCordinates;
     ctx.canvas.height = window.innerHeight - 20;
   }
-
   //function to draw objects
   function draw() {
-    ctx.drawImage(swordImage, swordXCordinates, swordYCordinates, 400, 400);
     ctx.drawImage(princeImage, princeXCordinates, princeYCordinates);
-    ctx.drawImage(monsterImage, monsterXCordinates, monsterYCordinates);
-  }
+    ctx.drawImage(jungleGirlImage, jungleGirlXCordinates, jungleGirlYCordinates);
 
+    //Eskimo begins conversation upon seeing the player
+    if (jungleGirlCanSee == true) {
+      ctx.drawImage(jungleGirlDialog1, jungleGirlXCordinates - 190, jungleGirlYCordinates - 20); //displays first dialugue by Eskimo
+
+      setTimeout(function () {
+        ctx.drawImage(princeDialog1, princeXCordinates + 80, princeYCordinates - 20);
+        jungleGirlDialog1.src = "images/dialog/transparent-bg.png";
+      }, 3000); //player responds after few seconds delay
+
+      setTimeout(function () {
+        ctx.drawImage(jungleGirlDialog2, jungleGirlXCordinates - 190, jungleGirlYCordinates - 20);
+        princeDialog1.src = "images/dialog/transparent-bg.png";
+      }, 6000); //the eskimo responds to player after few seconds delay
+
+      setTimeout(function () {
+        ctx.drawImage(princeDialog2, princeXCordinates + 80, princeYCordinates - 20);
+        jungleGirlDialog2.src = "images/dialog/transparent-bg.png";
+      }, 9000); //player responds
+
+      setTimeout(function () {
+        princeDialog2.src = "images/dialog/transparent-bg.png";
+      }, 13000); //player responds
+    }
+  }
   //main function rendering the objects with state changes
   function gameLoop() {
     clear();
     update();
     draw();
-    moveMonster();
-    setTimeout(gameLoop, 20); //calls the game loop
+    setTimeout(gameLoop, 0); //calls the game loop
   }
   gameLoop(); //calls game loop for first time
 }
