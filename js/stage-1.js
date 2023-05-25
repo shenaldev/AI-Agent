@@ -129,8 +129,14 @@ function init() {
     ctx.drawImage(cottage, treeXCordinates, treeYCordinates);
 
     if (cansee == true) {
-      deerImage.src = "images/charactors/lion.png";
+      deerImage.src = "images/charactors/sven-angry.png";
       deerXCordinates = princeXCordinates - 50;
+      deerYCordinates = princeYCordinates - 300;
+
+      princeImage.src = "images/charactors/prince-dead.png";
+      //princeXCordinates = princeXCordinates - 50;
+      princeYCordinates = 750;
+
       lionGrowlSound.play();
       lionGrowlSound.loop = true;
     } else {
