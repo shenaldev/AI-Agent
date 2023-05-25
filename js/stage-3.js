@@ -2,7 +2,7 @@ window.onload = init();
 function init() {
   let monsterDed = false;
 
-  const c = document.getElementById("canvas-stage-2");
+  const c = document.getElementById("canvas-stage-3");
   ctx = c.getContext("2d");
   ctx.canvas.width = window.innerWidth;
   ctx.canvas.height = window.innerHeight;
@@ -119,7 +119,7 @@ function init() {
 
     if (monsterDed) {
       setTimeout(() => {
-        window.open("stage-3.html", "_self"); //continues to next scene
+        window.open("stage-4.html", "_self"); //continues to next scene
       }, 2000);
     }
   }

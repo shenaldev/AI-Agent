@@ -1,6 +1,6 @@
 window.onload = init();
 function init() {
-  const c = document.getElementById("canvas-stage-3");
+  const c = document.getElementById("canvas-stage-2");
   let ctx = c.getContext("2d");
   ctx.canvas.width = window.innerWidth;
   ctx.canvas.height = window.innerHeight;
@@ -87,7 +87,7 @@ function init() {
     }
 
     if (princeXCordinates > 1500) {
-      window.open("stage-4.html", "_self"); //continues to next scene
+      window.open("stage-3.html", "_self"); //continues to next scene
     }
   }
 
