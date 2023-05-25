@@ -72,11 +72,11 @@ function init() {
   function update() {
     //checks if left arrow is pressed
     if (37 in keyPress) {
-      princeXCordinates = princeXCordinates - 5; //changes position of player to move back
+      princeXCordinates = princeXCordinates - 1; //changes position of player to move back
     }
     //checks if right arrow is pressed
     if (39 in keyPress && chatComplete == true) {
-      princeXCordinates = princeXCordinates + 5; //chanes position of the player to move forward
+      princeXCordinates = princeXCordinates + 1; //chanes position of the player to move forward
     }
 
     //when the player appraaches the Eskimo sees the player
@@ -119,6 +119,10 @@ function init() {
         ctx.drawImage(princeDialog2, princeXCordinates + 80, princeYCordinates - 20);
         jungleGirlDialog2.src = "images/dialog/transparent-bg.png";
       }, 9000); //player responds
+
+      setTimeout(function () {
+        princeDialog2.src = "images/dialog/transparent-bg.png";
+      }, 13000); //player responds
     }
   }
   //main function rendering the objects with state changes
@@ -126,7 +130,7 @@ function init() {
     clear();
     update();
     draw();
-    setTimeout(gameLoop, 20); //calls the game loop
+    setTimeout(gameLoop, 0); //calls the game loop
   }
   gameLoop(); //calls game loop for first time
 }
