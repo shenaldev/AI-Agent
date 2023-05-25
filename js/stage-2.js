@@ -9,6 +9,16 @@ function init() {
   document.body.style.backgroundImage = "url('images/background/stage-2-castle-bg.jpg')";
   document.body.style.backgroundSize = "cover";
 
+  //Play Bg Music
+  document.addEventListener("keydown", () => {
+    let bgMusic = document.getElementById("bg-music");
+    bgMusic.play();
+    bgMusic.volume = 0.5;
+  });
+
+  //Sounds
+  let swordSound = new Audio("sounds/sword-sound.mp3");
+
   //darwing prince image
   let princeXCordinates = 20; //prince x cordinates
   let princeYCordinates = 520; //prince y cordinates
@@ -78,6 +88,7 @@ function init() {
         //HIT monster on near
         setTimeout(() => {
           ctx.drawImage(swordImage, swordXCordinates, swordYCordinates + 30, 400, 400);
+          swordSound.play();
         }, 300);
         // Change hit state on monster near
         setTimeout(() => {
@@ -106,8 +117,10 @@ function init() {
       monsterImage.src = "images/charactors/monster-ded.png";
     }
 
-    if (princeXCordinates > 1500) {
-      window.open("stage-3.html", "_self"); //continues to next scene
+    if (monsterDed) {
+      setTimeout(() => {
+        window.open("stage-3.html", "_self"); //continues to next scene
+      }, 2000);
     }
   }
 
