@@ -32,12 +32,12 @@ function init() {
 
   //darwing princes Image
   let princesX = 1200; //princess x cordinates
-  let princesY = 500; //princess y cordinates
+  let princesY = 400; //princess y cordinates
   let princesImage = new Image();
   princesImage.src = "images/charactors/princess.png";
 
   princesImage.onload = function () {
-    ctx.drawImage(princesImage, princesX, princesY, 300, 300);
+    ctx.drawImage(princesImage, princesX, princesY);
   };
 
   let meltingTextImage = new Image();
@@ -130,7 +130,7 @@ function init() {
   //function to draw objects
   function draw() {
     ctx.drawImage(olafImage, olafX, olafY, 300, 300);
-    ctx.drawImage(princesImage, princesX, princesY, 300, 300);
+    ctx.drawImage(princesImage, princesX, princesY);
 
     //ON Olaf See Princess
     if (princessCanSee) {

@@ -20,7 +20,7 @@ function init() {
 
   //darwing prince
   let princeX = 40; //prince x cordinates
-  let princeY = 300; //prince y cordinates
+  let princeY = 250; //prince y cordinates
   let princeImage = new Image();
   princeImage.src = "images/charactors/prince.png";
 
@@ -92,8 +92,8 @@ function init() {
 
   //function to draw objects
   function draw() {
-    ctx.drawImage(princeImage, princeX, princeY, 100, 300);
-    ctx.drawImage(princesImage, princesX, princesY, 200, 300);
+    ctx.drawImage(princeImage, princeX, princeY);
+    ctx.drawImage(princesImage, princesX, princesY);
 
     if (princesCanSee) {
       ctx.drawImage(princeDialog1, princeX + 120, princeY - 100, 200, 200);

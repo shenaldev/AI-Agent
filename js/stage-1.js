@@ -91,13 +91,13 @@ function init() {
     //checks if left arrow is pressed
     if (37 in keyPress) {
       princeXCordinates = princeXCordinates - 5; //changes position of player to move back
-      ctx.drawImage(soundImage, princeXCordinates + 50, princeYCordinates + 150);
+      ctx.drawImage(soundImage, princeXCordinates + 50, princeYCordinates + 300);
     }
 
     //checks if right arrow is pressed
     if (39 in keyPress) {
       princeXCordinates = princeXCordinates + 5; //changes position of the player to move forward
-      ctx.drawImage(soundImage, princeXCordinates + 50, princeYCordinates + 150);
+      ctx.drawImage(soundImage, princeXCordinates + 50, princeYCordinates + 300);
     }
     //when the player travels a distance the lion hears the sound
     if (princeXCordinates > 150) {
