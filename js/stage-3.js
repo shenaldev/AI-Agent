@@ -7,6 +7,13 @@ function init() {
   document.body.style.backgroundImage = "url('images/background/stage-3-rock-cave-bg.jpg')";
   document.body.style.backgroundSize = "contain";
 
+  //Play Bg Music
+  document.addEventListener("keydown", () => {
+    let bgMusic = document.getElementById("bg-music");
+    bgMusic.play();
+    bgMusic.volume = 0.5;
+  });
+
   //darwing player image
   let princeXCordinates = 5; //player x cordinates
   let princeYCordinates = 290; //player y cordinates
