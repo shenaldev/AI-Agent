@@ -8,22 +8,38 @@ function init() {
   document.body.style.backgroundSize = "contain";
 
   let feelHeat = false;
+  let princessCanSee = false;
 
   //darwing Olaf image
   let olafX = 40; //olaf x cordinates
-  let olafY = 450; //olaf y cordinates
+  let olafY = 500; //olaf y cordinates
   let olafImage = new Image();
   olafImage.src = "images/charactors/olaf-walking-happy.png";
 
+  olafImage.onload = function () {
+    ctx.drawImage(olafImage, olafX, olafY, 300, 300);
+  };
+
+  //darwing princes Image
+  let princesX = 1200; //princess x cordinates
+  let princesY = 500; //princess y cordinates
+  let princesImage = new Image();
+  princesImage.src = "images/charactors/princess.png";
+
+  princesImage.onload = function () {
+    ctx.drawImage(princesImage, princesX, princesY, 300, 300);
+  };
+
   let meltingTextImage = new Image();
   meltingTextImage.src = "images/dialog/stage-4-melting-text.png";
-
   let coolTextImage = new Image();
   coolTextImage.src = "images/dialog/stage-4-cool-text.png";
 
-  olafImage.onload = function () {
-    ctx.drawImage(olafImage, olafX, olafY, 400, 400);
-  };
+  //Dialog Images
+  let princessDialog1 = new Image();
+  princessDialog1.src = "images/dialog/princess-dialog-1.png";
+  let olafDialog1 = new Image();
+  olafDialog1.src = "images/dialog/olaf-dialog-1.png";
 
   let keyPress = {}; //initialize the list that containing key presses
 
@@ -47,48 +63,40 @@ function init() {
 
   //function to update the state of the game for elapsed time since last rendering of object
   function update() {
+    if (olafX > 1500) {
+      window.open("stage-5.html", "_self"); //continues to next scene
+      return;
+    }
+
     //checks if left arrow is pressed
     if (37 in keyPress) {
-      olafX = olafX - 10;
+      olafX = olafX - 1;
+      princesX = princesX + 1;
     }
 
     //checks if right arrow is pressed
     if (39 in keyPress) {
-      olafX = olafX + 10;
+      olafX = olafX + 1;
+      princesX = princesX - 1;
+    }
+
+    //Princess can see
+    if (olafX > 400) {
+      princessCanSee = true;
+    }
+    //Princess cant see
+    if (olafX > 550) {
+      princessCanSee = false;
     }
 
     // Show Summer First Time
-    if (olafX > 700) {
+    if (olafX > 1000) {
       document.body.style.backgroundImage = "url('images/background/stage-4-summer-bg.jpg')";
       feelHeat = true;
     }
-    if (olafX < 700) {
+    if (olafX < 1000) {
       document.body.style.backgroundImage = "url('images/background/stage-4-winter-bg.jpg')";
       feelHeat = false;
-    }
-
-    // FINAL STAGE
-    if (olafX > 1600) {
-      document.body.style.backgroundImage = "url('images/background/stage-4-winter-bg.jpg')";
-      feelHeat = false;
-    }
-    if (olafX < 1600 && olafX > 700) {
-      document.body.style.backgroundImage = "url('images/background/stage-4-summer-bg.jpg')";
-      feelHeat = true;
-    }
-
-    if (feelHeat) {
-      olafImage.src = "images/charactors/olaf-walking-sad.png";
-      ctx.drawImage(meltingTextImage, olafX + 300, olafY - 200, 300, 300);
-    } else {
-      if (olafX > 1600) {
-        ctx.drawImage(coolTextImage, olafX + 300, olafY - 200, 300, 300);
-      }
-      olafImage.src = "images/charactors/olaf-walking-happy.png";
-    }
-
-    if (olafX > 1700) {
-      window.open("stage-5.html", "_self"); //continues to next scene
     }
   }
 
@@ -100,7 +108,30 @@ function init() {
 
   //function to draw objects
   function draw() {
-    ctx.drawImage(olafImage, olafX, olafY, 400, 400);
+    ctx.drawImage(olafImage, olafX, olafY, 300, 300);
+    ctx.drawImage(princesImage, princesX, princesY, 300, 300);
+
+    //ON Olaf See Princess
+    if (princessCanSee) {
+      ctx.drawImage(princessDialog1, princesX - 100, princesY - 100, 200, 200);
+
+      setTimeout(() => {
+        princessDialog1.src = "images/dialog/transparent-bg.png";
+        ctx.drawImage(olafDialog1, olafX + 200, olafY - 100, 200, 200);
+      }, 1000);
+    }
+
+    //Olaf on sunny forest
+    if (feelHeat) {
+      console.log(olafX);
+      olafImage.src = "images/charactors/olaf-walking-sad.png";
+      ctx.drawImage(meltingTextImage, olafX + 200, olafY - 200, 300, 300);
+    } else {
+      if (olafX > 1600) {
+        ctx.drawImage(coolTextImage, olafX + 200, olafY - 200, 300, 300);
+      }
+      olafImage.src = "images/charactors/olaf-walking-happy.png";
+    }
   }
 
   //main function rendering the objects with state changes
@@ -108,7 +139,7 @@ function init() {
     clear();
     update();
     draw();
-    setTimeout(gameLoop, 20); //calls the game loop
+    setTimeout(gameLoop, 0); //calls the game loop
   }
   gameLoop(); //calls game loop for first time
 }
