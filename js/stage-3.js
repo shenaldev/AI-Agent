@@ -18,6 +18,7 @@ function init() {
 
   //Sounds
   let swordSound = new Audio("sounds/sword-sound.mp3");
+  let walkingSound = new Audio("sounds/foot-steps.wav");
 
   //darwing prince image
   let princeXCordinates = 20; //prince x cordinates
@@ -52,18 +53,29 @@ function init() {
     "keydown",
     function (e) {
       keyPress[e.keyCode] = true;
+      walkingSoundPlay();
     },
     false
   );
 
-  // prince walking left when click the left arrow
   addEventListener(
     "keyup",
     function (e) {
       delete keyPress[e.keyCode];
+      walkingSoundStop();
     },
     false
   );
+
+  function walkingSoundPlay() {
+    walkingSound.play();
+  }
+
+  function walkingSoundStop() {
+    setTimeout(() => {
+      walkingSound.pause();
+    }, 200);
+  }
 
   function moveMonster() {
     if (!monsterDed) {

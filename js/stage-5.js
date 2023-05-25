@@ -11,6 +11,13 @@ function init() {
   let princesCanSee = false;
   let end = false;
 
+  //Play Bg Music
+  let bgMusic = document.getElementById("bg-music");
+  document.addEventListener("keydown", () => {
+    bgMusic.play();
+    bgMusic.volume = 0.5;
+  });
+
   //darwing prince
   let princeX = 40; //prince x cordinates
   let princeY = 300; //prince y cordinates

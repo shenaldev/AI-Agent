@@ -14,6 +14,9 @@ function init() {
     bgMusic.volume = 0.5;
   });
 
+  //Sounds
+  let walkingSound = new Audio("sounds/foot-steps.wav");
+
   //darwing player image
   let princeXCordinates = 5; //player x cordinates
   let princeYCordinates = 290; //player y cordinates
@@ -56,6 +59,7 @@ function init() {
     "keydown",
     function (e) {
       keyPress[e.keyCode] = true;
+      walkingSoundPlay();
     },
     false
   );
@@ -64,9 +68,20 @@ function init() {
     "keyup",
     function (e) {
       delete keyPress[e.keyCode];
+      walkingSoundStop();
     },
     false
   );
+
+  function walkingSoundPlay() {
+    walkingSound.play();
+  }
+
+  function walkingSoundStop() {
+    setTimeout(() => {
+      walkingSound.pause();
+    }, 200);
+  }
 
   //function to update the state of the game for elapsed time since last rendering of object
   function update() {

@@ -10,6 +10,16 @@ function init() {
   let feelHeat = false;
   let princessCanSee = false;
 
+  //Play Bg Music
+  let bgMusic = document.getElementById("bg-music");
+  document.addEventListener("keydown", () => {
+    bgMusic.play();
+    bgMusic.volume = 0.5;
+  });
+
+  //Sounds
+  let walkingSound = new Audio("sounds/foot-steps.wav");
+
   //darwing Olaf image
   let olafX = 40; //olaf x cordinates
   let olafY = 500; //olaf y cordinates
@@ -48,18 +58,29 @@ function init() {
     "keydown",
     function (e) {
       keyPress[e.keyCode] = true;
+      walkingSoundPlay();
     },
     false
   );
 
-  // prince walking left when click the left arrow
   addEventListener(
     "keyup",
     function (e) {
       delete keyPress[e.keyCode];
+      walkingSoundStop();
     },
     false
   );
+
+  function walkingSoundPlay() {
+    walkingSound.play();
+  }
+
+  function walkingSoundStop() {
+    setTimeout(() => {
+      walkingSound.pause();
+    }, 200);
+  }
 
   //function to update the state of the game for elapsed time since last rendering of object
   function update() {
