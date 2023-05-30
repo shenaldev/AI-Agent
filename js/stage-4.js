@@ -144,7 +144,6 @@ function init() {
 
     //Olaf on sunny forest
     if (feelHeat) {
-      console.log(olafX);
       olafImage.src = "images/charactors/olaf-walking-sad.png";
       ctx.drawImage(meltingTextImage, olafX + 200, olafY - 200, 300, 300);
     } else {
